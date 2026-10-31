@@ -2,7 +2,7 @@ const express = require("express");
 const cloudinary = require("../config/cloudinary");
 const upload = require("../middleware/upload");
 const streamifier = require("streamifier");
-
+const Video = require("../models/video.models.js");
 const router = express.Router();
 
 router.post("/upload", upload.single("video"), async (req, res) => {
@@ -28,16 +28,16 @@ router.post("/upload", upload.single("video"), async (req, res) => {
 
       streamifier.createReadStream(req.file.buffer).pipe(stream);
     });
-
+    const savedVideo = await Video.create({
+      title: req.file.originalname,
+      videoUrl: result.secure_url,
+      publicId: result.public_id,
+      size: result.bytes,
+    });
     res.status(201).json({
       success: true,
       message: "Video uploaded successfully!",
-      video: {
-        name: req.file.originalname,
-        url: result.secure_url,
-        publicId: result.public_id,
-        size: result.bytes,
-      },
+      video: savedVideo,
     });
   } catch (error) {
     console.error("Upload error:", error);
