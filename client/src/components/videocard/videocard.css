@@ -17,3 +17,8 @@
   padding: 8px 16px;
   cursor: pointer;
 }
+
+.video-container img {
+  width: 200px;
+  height: 200px;
+}

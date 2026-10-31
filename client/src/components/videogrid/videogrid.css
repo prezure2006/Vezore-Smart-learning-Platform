@@ -6,5 +6,6 @@
   display: grid;
   grid-template-columns: repeat(4, 0.4fr);
   gap: 16px;
-  background-color: wheat;
+  background-color: whitesmoke;
+  margin-top: 2px;
 }

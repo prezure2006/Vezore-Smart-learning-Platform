@@ -5,7 +5,7 @@ const Navbar = () => {
       <h1>Vezore</h1>
       <div>
         <label htmlFor="searchf" className="lable-sr">
-          Whats on mind:
+          <strong>Whats on mind:</strong>
         </label>
         <input
           type="text"

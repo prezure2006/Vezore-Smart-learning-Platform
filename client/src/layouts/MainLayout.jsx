@@ -10,7 +10,6 @@ const MainLayout = () => {
 
       <div className="dashboard">
         <SideBar />
-
         <main className="main-content">
           <VideoGrid />
         </main>

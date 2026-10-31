@@ -28,7 +28,7 @@ const VideoGrid = () => {
           <VideoCard
             key={vide.duration}
             title={vide.title}
-            thumbnail={vide.thumbnail}
+            thumbnail={vide.thumbnailURL}
             uploadDate={vide.uploadDate}
             duration={vide.duration}
           />

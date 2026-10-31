@@ -28,11 +28,17 @@ router.post("/upload", upload.single("video"), async (req, res) => {
 
       streamifier.createReadStream(req.file.buffer).pipe(stream);
     });
+    const videoUrl = result.secure_url;
+    const thumbnailUrl = videoUrl
+      .replace("/video/upload/", "/video/upload/so_2/")
+      .replace(".mp4", ".jpg");
+    console.log(thumbnailUrl);
     const savedVideo = await Video.create({
       title: req.file.originalname,
       videoUrl: result.secure_url,
       publicId: result.public_id,
       size: result.bytes,
+      thumbnailURL: thumbnailUrl,
     });
     res.status(201).json({
       success: true,

@@ -20,6 +20,10 @@ const VideoData = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    thumbnailURL: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
