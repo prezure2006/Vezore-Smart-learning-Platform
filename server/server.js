@@ -1,11 +1,11 @@
 require("dotenv").config();
-const videoRoutes = require("./routes/videoUpload");
+const videoUpload = require("./routes/videoUpload");
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
 const connectMongo = require("./config/db");
-
+const videoRoutes = require("./routes/videoRoutes");
 const app = express();
 connectMongo();
 app.use(
@@ -25,6 +25,7 @@ app.get("/api/health", (req, res) => {
 });
 
 // Video routes
+app.use("/api/videos", videoUpload);
 app.use("/api/videos", videoRoutes);
 
 // Error handling
