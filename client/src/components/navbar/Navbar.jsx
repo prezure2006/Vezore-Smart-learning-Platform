@@ -2,7 +2,6 @@ import "./navbar.css";
 const Navbar = () => {
   return (
     <div className="container">
-      <img src="" alt="" />
       <h1>Vezore</h1>
       <div>
         <label htmlFor="searchf" className="lable-sr">

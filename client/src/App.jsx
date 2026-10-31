@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Navbar from "./components/navbar/Navbar";
 import MainLayout from "./layouts/MainLayout";
+import VideoCard from "./components/videocard/VideoCard";
+import VideoGrid from "./components/videogrid/VideoGrid";
 
 function App() {
   // const [message, setMessage] = useState("Connecting...");

@@ -1,0 +1,14 @@
+.dashboard {
+  display: flex;
+  align-items: flex-start;
+}
+
+.sidebar {
+  width: 180px;
+  flex-shrink: 0;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+}
