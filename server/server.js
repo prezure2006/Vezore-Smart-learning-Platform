@@ -2,9 +2,12 @@ require("dotenv").config();
 const videoRoutes = require("./routes/videoUpload");
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
+
+const connectMongo = require("./config/db");
 
 const app = express();
-
+connectMongo();
 app.use(
   cors({
     origin: "http://localhost:5173",
