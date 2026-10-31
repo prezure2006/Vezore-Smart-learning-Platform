@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 15px 30px;
+  background-color: wheat;
+  color: salmon;
+}
+.inpt {
+  width: 350px;
+  height: 35px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid #000000;
+  background-color: #35e043;
+  color: rgb(7, 1, 1);
+}
+.pfp {
+  text-decoration: none;
+  color: salmon;
+}
