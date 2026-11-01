@@ -31,6 +31,7 @@ const VideoGrid = () => {
             thumbnail={vide.thumbnailURL}
             uploadDate={vide.uploadDate}
             duration={vide.duration}
+            id={vide._id}
           />
         );
       })}

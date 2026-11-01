@@ -6,6 +6,7 @@ import VideoGrid from "../components/videogrid/VideoGrid";
 const MainLayout = () => {
   return (
     <div className="layout">
+      <h1>Intelligent Video Platform</h1>
       <Navbar />
 
       <div className="dashboard">

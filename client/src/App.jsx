@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import Navbar from "./components/navbar/Navbar";
 import MainLayout from "./layouts/MainLayout";
-import VideoCard from "./components/videocard/VideoCard";
-import VideoGrid from "./components/videogrid/VideoGrid";
 
+import { Routes, Route } from "react-router-dom";
+import WatchPage from "./pages/watchpage/WatchPage";
 function App() {
   // const [message, setMessage] = useState("Connecting...");
   // const [error, setError] = useState("");
@@ -25,11 +23,10 @@ function App() {
   // }, []);
 
   return (
-    <div>
-      <h1>Intelligent Video Platform</h1>
-
-      <MainLayout />
-    </div>
+    <Routes>
+      <Route path="/" element={<MainLayout />} />
+      <Route path="/watch/:id" element={<WatchPage />} />
+    </Routes>
   );
 }
 
