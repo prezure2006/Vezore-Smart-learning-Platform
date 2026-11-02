@@ -36,6 +36,7 @@ const WatchPage = () => {
           Title: <strong>{video.title}</strong>
         </h1>
         <p>Upload Date : {new Date(video.createdAt).toLocaleDateString()}</p>
+        <p className="video-description">Description:{video.description}</p>
       </div>
     </div>
   );

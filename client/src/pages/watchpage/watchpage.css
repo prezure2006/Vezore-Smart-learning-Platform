@@ -38,3 +38,13 @@
   font-size: small;
   color: rgba(0, 0, 0, 0.699);
 }
+.video-info p.video-description {
+  font-size: 18px;
+  line-height: 1.6;
+}
+.video-description {
+  line-height: 1.6;
+  margin-top: 5px;
+  max-width: 900px;
+  color: black;
+}
