@@ -2,6 +2,7 @@ import MainLayout from "./layouts/MainLayout";
 
 import { Routes, Route } from "react-router-dom";
 import WatchPage from "./pages/watchpage/WatchPage";
+import Upload from "./pages/upload/Upload";
 function App() {
   // const [message, setMessage] = useState("Connecting...");
   // const [error, setError] = useState("");
@@ -26,6 +27,7 @@ function App() {
     <Routes>
       <Route path="/" element={<MainLayout />} />
       <Route path="/watch/:id" element={<WatchPage />} />
+      <Route path="/upload" element={<Upload />}></Route>
     </Routes>
   );
 }
