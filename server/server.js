@@ -14,8 +14,6 @@ app.use(
   }),
 );
 
-app.use(express.json());
-
 // Health check
 app.get("/api/health", (req, res) => {
   res.json({
@@ -25,6 +23,7 @@ app.get("/api/health", (req, res) => {
 });
 
 // Video routes
+app.use(express.json());
 app.use("/api/videos", videoUpload);
 app.use("/api/videos", videoRoutes);
 

@@ -1,6 +1,7 @@
 const express = require("express");
 const Video = require("../models/video.models.js");
 const router = express.Router();
+const cloudinary = require("../config/cloudinary.js");
 router.get("/all", async (req, res) => {
   try {
     const allVideo = await Video.find();
@@ -38,9 +39,57 @@ router.get("/:id", async (req, res) => {
     });
   }
 });
-router.get("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   try {
     const video = await Video.findById(req.params.id);
-  } catch (error) {}
+    if (!video) {
+      return res.status(404).json({
+        message: "Video not found",
+      });
+    }
+    const publicId = video.publicId;
+    const result = await cloudinary.uploader.destroy(publicId, {
+      resource_type: "video",
+    });
+    if (result.result !== "ok" && result.result !== "not found") {
+      throw new Error("Cloudinary deletion failed");
+    }
+
+    await video.deleteOne();
+
+    return res.status(200).json({
+      message: "Successful ",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to delete video",
+    });
+  }
+});
+router.put("/updateinfo/:id", async (req, res) => {
+  try {
+    const video = await Video.findById(req.params.id);
+    console.log("Received ID:", req.params.id);
+    if (!video) {
+      return res.status(404).json({
+        message: "Video doesnt exist",
+      });
+    }
+    console.log("Found video:", video);
+    video.title = req.body.title;
+    video.description = req.body.description;
+    await video.save();
+    return res.status(200).json({
+      message: "Updated data ",
+    });
+  } catch (error) {
+    console.error("PUT ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 });
 module.exports = router;
