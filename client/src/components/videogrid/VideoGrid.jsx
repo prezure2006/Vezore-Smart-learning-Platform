@@ -20,6 +20,23 @@ const VideoGrid = () => {
       console.error("Error fetching videos:", error);
     }
   }, []);
+  const handleDelete = async (id) => {
+    try {
+      // how we send  requestto backend
+      const response = await fetch(
+        `http://localhost:5000/api/videos/delete/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
+      if (!response.ok) {
+        throw new Error("Failed to delete video");
+      }
+      setvideo((prevVideos) => prevVideos.filter((vide) => vide._id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="video-grid">
@@ -33,6 +50,7 @@ const VideoGrid = () => {
             duration={vide.duration}
             id={vide._id}
             description={vide.description}
+            onDelete={handleDelete}
           />
         );
       })}

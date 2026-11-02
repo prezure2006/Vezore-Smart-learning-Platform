@@ -22,3 +22,8 @@
   width: 200px;
   height: 200px;
 }
+.button-container {
+  display: flex;
+  flex-direction: row;
+  gap: calc(20px);
+}
