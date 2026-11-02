@@ -1,1 +1,1 @@
-#Vezore- Video learning Platform for new generation
+# Vezore- Video learning Platform for new generation
