@@ -38,4 +38,9 @@ router.get("/:id", async (req, res) => {
     });
   }
 });
+router.get("/delete/:id", async (req, res) => {
+  try {
+    const video = await Video.findById(req.params.id);
+  } catch (error) {}
+});
 module.exports = router;
