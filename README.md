@@ -138,6 +138,7 @@ Start the Vite development server using your configured npm script.
 - [x] Frontend video upload
 - [x] Frontend video deletion
 - [x] Frontend video editing
+- [ ] ffmpeg for audio and video extraction
 - [ ] AI-powered video transcription
 - [ ] AI-generated summaries
 - [ ] Intelligent note generation
