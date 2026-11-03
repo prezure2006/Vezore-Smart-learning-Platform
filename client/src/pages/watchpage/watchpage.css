@@ -48,3 +48,11 @@
   max-width: 900px;
   color: black;
 }
+.btn-edit {
+  height: 30px;
+  width: 80px;
+  border: 2px thick black;
+  border-radius: 6px;
+  color: rgb(20, 17, 17);
+  background-color: azure;
+}
