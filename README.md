@@ -137,7 +137,7 @@ Start the Vite development server using your configured npm script.
 - [x] Delete video API
 - [x] Frontend video upload
 - [x] Frontend video deletion
-- [ ] Frontend video editing
+- [x] Frontend video editing
 - [ ] AI-powered video transcription
 - [ ] AI-generated summaries
 - [ ] Intelligent note generation
