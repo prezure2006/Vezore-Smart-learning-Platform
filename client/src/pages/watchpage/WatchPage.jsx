@@ -24,6 +24,10 @@ const WatchPage = () => {
   if (!video) {
     return <p>Loading video...</p>;
   }
+  async function editVideo() {
+    try {
+    } catch (error) {}
+  }
   return (
     <div className="watch-page">
       <div className="player-container">
@@ -39,7 +43,9 @@ const WatchPage = () => {
         <p className="video-description">Description:{video.description}</p>
       </div>
       <div className="edit-button">
-        <button className="btn-edit">Edit Video</button>
+        <button className="btn-edit" onClick={editVideo}>
+          Edit Video
+        </button>
       </div>
     </div>
   );
