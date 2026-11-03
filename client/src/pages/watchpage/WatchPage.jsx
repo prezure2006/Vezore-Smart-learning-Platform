@@ -1,7 +1,8 @@
 import "./watchpage.css";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 const WatchPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [video, setVideo] = useState(null);
   useEffect(() => {
@@ -43,7 +44,7 @@ const WatchPage = () => {
         <p className="video-description">Description:{video.description}</p>
       </div>
       <div className="edit-button">
-        <button className="btn-edit" onClick={editVideo}>
+        <button className="btn-edit" onClick={() => navigate(`/edit/${id}`)}>
           Edit Video
         </button>
       </div>

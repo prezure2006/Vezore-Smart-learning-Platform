@@ -30,7 +30,7 @@ function App() {
       <Route path="/" element={<MainLayout />} />
       <Route path="/watch/:id" element={<WatchPage />} />
       <Route path="/upload" element={<Upload />}></Route>
-      <Route path="/edit" element={<EditPage />}></Route>
+      <Route path="/edit/:id" element={<EditPage />}></Route>
     </Routes>
   );
 }
