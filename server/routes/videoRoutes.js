@@ -92,4 +92,29 @@ router.put("/updateinfo/:id", async (req, res) => {
     });
   }
 });
+router.post("/:id/transcribe", async (req, res) => {
+  try {
+    const video = await Video.findById(req.params.id);
+
+    if (!video) {
+      return res.status(404).json({
+        success: false,
+        message: "Video not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Video found successfully",
+      videoUrl: video.videoUrl,
+    });
+  } catch (error) {
+    console.error("Transcription route error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to retrieve video",
+    });
+  }
+});
 module.exports = router;
