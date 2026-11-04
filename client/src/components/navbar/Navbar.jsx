@@ -1,22 +1,19 @@
+import { useNavigate } from "react-router-dom";
 import "./navbar.css";
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <div className="container">
       <h1>Vezore</h1>
       <div>
-        <label htmlFor="searchf" className="lable-sr">
-          <strong>Whats on mind:</strong>
-        </label>
-        <input
-          type="text"
-          className="inpt"
-          placeholder="Search for videos..."
-          id="searchf"
-        />
+        <input type="text" className="inpt" id="searchf" placeholder="Search" />
       </div>
-      <a href="#" className="pfp">
-        Profile
-      </a>
+      <img
+        src="https://i.pinimg.com/736x/76/01/f5/7601f57a17473be024d6638225cd2d90.jpg"
+        alt=""
+        className="pfp-img"
+        onClick={() => navigate("/profile")}
+      />
     </div>
   );
 };

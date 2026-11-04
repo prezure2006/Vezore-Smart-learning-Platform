@@ -2,7 +2,9 @@ import "./sidebar.css";
 const SideBar = () => {
   return (
     <aside className="sidebar">
-      <h1>Menu</h1>
+      <div className="heading-menu">
+        <h1>Menu</h1>
+      </div>
       <div className="listf">
         <a href="#">Home</a>
         <a href="#">My Learnings</a>
