@@ -2,6 +2,7 @@ const express = require("express");
 const Video = require("../models/video.models.js");
 const router = express.Router();
 const cloudinary = require("../config/cloudinary.js");
+const downloadVideo = require("../utils/downloadVideo.js");
 router.get("/all", async (req, res) => {
   try {
     const allVideo = await Video.find();
@@ -102,6 +103,9 @@ router.post("/:id/transcribe", async (req, res) => {
         message: "Video not found",
       });
     }
+    const filePath = await downloadVideo(video.videoUrl, video._id);
+
+    console.log("Downloaded video:", filePath);
 
     return res.status(200).json({
       success: true,
