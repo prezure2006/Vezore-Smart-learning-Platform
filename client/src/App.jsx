@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import WatchPage from "./pages/watchpage/WatchPage";
 import Upload from "./pages/upload/Upload";
 import EditPage from "./pages/editpage/EditPage";
+import Profile from "./pages/profile/Profile";
 
 function App() {
   // const [message, setMessage] = useState("Connecting...");
@@ -31,6 +32,7 @@ function App() {
       <Route path="/watch/:id" element={<WatchPage />} />
       <Route path="/upload" element={<Upload />}></Route>
       <Route path="/edit/:id" element={<EditPage />}></Route>
+      <Route path="/profile" element={<Profile />}></Route>
     </Routes>
   );
 }

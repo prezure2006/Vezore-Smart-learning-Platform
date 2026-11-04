@@ -1,0 +1,13 @@
+.pfp-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+}
+.pfp-img {
+  width: 65px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
