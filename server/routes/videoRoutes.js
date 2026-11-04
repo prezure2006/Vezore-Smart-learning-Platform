@@ -3,6 +3,7 @@ const Video = require("../models/video.models.js");
 const router = express.Router();
 const cloudinary = require("../config/cloudinary.js");
 const downloadVideo = require("../utils/downloadVideo.js");
+const extractAudio = require("../utils/extractAudio.js");
 router.get("/all", async (req, res) => {
   try {
     const allVideo = await Video.find();
@@ -106,6 +107,9 @@ router.post("/:id/transcribe", async (req, res) => {
     const filePath = await downloadVideo(video.videoUrl, video._id);
 
     console.log("Downloaded video:", filePath);
+    const audioPath = await extractAudio(filePath, video._id);
+
+    console.log("Audio extracted:", audioPath);
 
     return res.status(200).json({
       success: true,
