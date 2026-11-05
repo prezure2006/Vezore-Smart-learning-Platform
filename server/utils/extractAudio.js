@@ -6,7 +6,8 @@ const execFileAsync = promisify(execFile);
 
 async function extractAudio(videoPath, videoId) {
   const audioPath = path.join(path.dirname(videoPath), `${videoId}.wav`);
-
+  console.log("Input video:", videoPath);
+  console.log("Output audio:", audioPath);
   await execFileAsync("ffmpeg", [
     "-y",
     "-i",
