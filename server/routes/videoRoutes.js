@@ -4,6 +4,7 @@ const router = express.Router();
 const cloudinary = require("../config/cloudinary.js");
 const downloadVideo = require("../utils/downloadVideo.js");
 const extractAudio = require("../utils/extractAudio.js");
+const transcribeAudio = require("../utils/transcribeAudio.js");
 router.get("/all", async (req, res) => {
   try {
     const allVideo = await Video.find();
@@ -110,18 +111,23 @@ router.post("/:id/transcribe", async (req, res) => {
     const audioPath = await extractAudio(filePath, video._id);
 
     console.log("Audio extracted:", audioPath);
+    const transcript = await transcribeAudio(audioPath);
+
+    console.log("Transcript:", transcript.text);
+    console.log("Segments:", transcript.segments);
 
     return res.status(200).json({
       success: true,
-      message: "Video found successfully",
-      videoUrl: video.videoUrl,
+      message: "Transcription completed",
+      transcript,
     });
   } catch (error) {
     console.error("Transcription route error:", error);
 
     return res.status(500).json({
       success: false,
-      message: "Failed to retrieve video",
+      message: "Transcription failed",
+      error: error.message,
     });
   }
 });
