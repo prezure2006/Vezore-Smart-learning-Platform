@@ -1,3 +1,0 @@
-Day-3
-In Vezore, we use FFmpeg to extract audio from an uploaded video and convert it into a format suitable for speech recognition. First, we can extract the original AAC audio without re-encoding it. Then, we convert it into a WAV file with mono audio, a 16 kHz sample rate, and 16-bit PCM format. This makes the audio suitable for Whisper transcription. We use the Groq API with Whisper Large V3 to convert spoken words into text. By using verbose_json, we also get timestamps for each sentence, which can later help users jump to the exact moment in the video.
-Day-4
