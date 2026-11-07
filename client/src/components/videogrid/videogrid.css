@@ -1,11 +1,113 @@
-* {
-  padding: 0;
-  margin: 0;
-}
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(4, 0.4fr);
-  gap: 16px;
-  background-color: whitesmoke;
-  margin-top: 2px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  padding: 24px;
+  flex: 1;
+  min-width: 0; /* stops the grid from overflowing next to the sidebar */
+  box-sizing: border-box;
+}
+
+/* Loading skeletons */
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.skeleton {
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--surface-2) 25%,
+    var(--border) 50%,
+    var(--surface-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeleton-thumb {
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+}
+
+.skeleton-line {
+  height: 14px;
+}
+
+.skeleton-line.short {
+  width: 60%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Empty and error states */
+.grid-message {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 80px 24px;
+  text-align: center;
+  color: var(--text);
+}
+
+.grid-message-icon {
+  font-size: 48px;
+}
+
+.grid-message h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.grid-message p {
+  margin: 0;
+  max-width: 320px;
+  color: var(--muted);
+}
+
+.retry-btn {
+  margin-top: 8px;
+  height: 40px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--primary);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.retry-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Respect users who turn off animations */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .video-grid {
+    padding: 16px;
+    gap: 16px;
+  }
 }

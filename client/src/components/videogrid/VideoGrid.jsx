@@ -1,60 +1,103 @@
 import "./videogrid.css";
-
 import VideoCard from "../videocard/VideoCard";
 import { useEffect, useState } from "react";
+
+const API = "http://localhost:5000/api/videos";
+
 const VideoGrid = () => {
-  const [video, setvideo] = useState([]);
-  useEffect(() => {
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const fetchVideos = async () => {
     try {
-      const fetchVideos = async () => {
-        console.log("VideoGrid mounted");
-        // 1. Fetch the API response
-        const response = await fetch("http://localhost:5000/api/videos/all");
-        // 2. Convert response to JSON
-        const data = await response.json();
-        // 3. Update video state
-        setvideo(data.videos);
-      };
-      fetchVideos();
-    } catch (error) {
-      console.error("Error fetching videos:", error);
-    }
-  }, []);
-  const handleDelete = async (id) => {
-    try {
-      // how we send  requestto backend
-      const response = await fetch(
-        `http://localhost:5000/api/videos/delete/${id}`,
-        {
-          method: "DELETE",
-        },
-      );
-      if (!response.ok) {
-        throw new Error("Failed to delete video");
-      }
-      setvideo((prevVideos) => prevVideos.filter((vide) => vide._id !== id));
-    } catch (error) {
-      console.error(error);
+      setLoading(true);
+      setError("");
+      const response = await fetch(`${API}/all`);
+      if (!response.ok) throw new Error("Failed to load videos");
+      const data = await response.json();
+      setVideos(data.videos || []);
+    } catch (err) {
+      console.error("Error fetching videos:", err);
+      setError("Could not load videos. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
+  useEffect(() => {
+    fetchVideos();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`${API}/delete/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Failed to delete video");
+      setVideos((prev) => prev.filter((v) => v._id !== id));
+    } catch (err) {
+      console.error(err);
+      alert("Could not delete the video.");
+    }
+  };
+
+  // Loading: show skeleton cards instead of a blank page
+  if (loading) {
+    return (
+      <div className="video-grid">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div className="skeleton-card" key={i}>
+            <div className="skeleton skeleton-thumb" />
+            <div className="skeleton skeleton-line" />
+            <div className="skeleton skeleton-line short" />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Error
+  if (error) {
+    return (
+      <div className="grid-message">
+        <span className="grid-message-icon">⚠️</span>
+        <h3>{error}</h3>
+        <button className="retry-btn" onClick={fetchVideos}>
+          Try again
+        </button>
+      </div>
+    );
+  }
+
+  // Empty
+  if (videos.length === 0) {
+    return (
+      <div className="grid-message">
+        <span className="grid-message-icon">🎬</span>
+        <h3>No videos yet</h3>
+        <p>Upload your first video to get an AI summary and transcript.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="video-grid">
-      {video.map((vide) => {
-        return (
-          <VideoCard
-            key={vide.duration}
-            title={vide.title}
-            thumbnail={vide.thumbnailURL}
-            uploadDate={vide.uploadDate}
-            duration={vide.duration}
-            id={vide._id}
-            description={vide.description}
-            onDelete={handleDelete}
-          />
-        );
-      })}
+      {videos.map((v) => (
+        <VideoCard
+          key={v._id}
+          id={v._id}
+          title={v.title}
+          thumbnail={v.thumbnailURL}
+          uploadDate={new Date(v.uploadDate).toLocaleDateString()}
+          duration={v.duration}
+          description={v.description}
+          hasSummary={Boolean(v.summary)} // adjust to your field name
+          onDelete={handleDelete}
+        />
+      ))}
     </div>
   );
 };
+
 export default VideoGrid;

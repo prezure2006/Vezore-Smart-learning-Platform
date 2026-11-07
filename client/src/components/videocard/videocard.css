@@ -1,29 +1,156 @@
 .video-container {
-  width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background: white;
+  border-radius: 16px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    border-color 0.2s;
 }
 
-.video-thumbnail {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
+.video-container:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-.video-container button {
-  padding: 8px 16px;
+/* Thumbnail */
+.thumb-wrap {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: var(--surface-2);
   cursor: pointer;
 }
 
-.video-container img {
-  width: 200px;
-  height: 200px;
+.thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
 }
+
+.video-container:hover .thumb-img {
+  transform: scale(1.04);
+}
+
+.duration-badge {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Text */
+.video-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.video-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.video-meta {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.video-desc {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* AI chip uses the teal accent */
+.ai-chip {
+  align-self: flex-start;
+  margin-top: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background-color: rgba(20, 184, 166, 0.14);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Buttons */
 .button-container {
   display: flex;
-  flex-direction: row;
-  gap: calc(20px);
+  gap: 8px;
+}
+
+.button-container button {
+  flex: 1;
+  height: 38px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    transform 0.1s;
+}
+
+.button-container button:active {
+  transform: scale(0.97);
+}
+
+.play-video {
+  border: none;
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+.play-video:hover {
+  background-color: var(--primary-hover);
+}
+
+.delete-video {
+  border: 1px solid var(--border);
+  background-color: transparent;
+  color: var(--muted);
+}
+
+.delete-video:hover {
+  border-color: var(--danger);
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+}
+
+/* Parent wrapper that places cards in a responsive grid */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  padding: 24px;
 }
