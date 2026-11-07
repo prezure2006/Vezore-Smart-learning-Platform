@@ -565,3 +565,10 @@ I learned that building software is not just writing components or API routes. I
 The AI functionality also taught me that using an AI model is only one part of an AI application. Before the model can do its job, the application must prepare the data, process it, send it correctly, and handle the result.
 
 **My development principle:** Build one feature, understand its workflow, test it, debug it, and then move forward. Functionality first, AI capabilities next, and UI polish last.
+
+Situation HTTP status
+Video doesn't exist 404
+Transcription pending 202
+Transcription processing 202
+Transcription completed 200
+Transcription failed 200

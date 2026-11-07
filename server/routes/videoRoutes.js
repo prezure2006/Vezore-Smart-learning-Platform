@@ -137,7 +137,6 @@ router.post("/:id/transcribe", async (req, res) => {
         console.error("Failed to update transcription status:", saveError);
       }
     }
-
     console.error("Transcription route error:", error);
 
     return res.status(500).json({
@@ -151,14 +150,24 @@ router.get("/:id/transcript", async (req, res) => {
   let video;
   try {
     video = await Video.findById(req.params.id);
+
     if (!video) {
       return res.status(404).json({
         message: "Video Doesnt exist",
         success: false,
       });
     }
-    const transcript = await video.transcript;
-    if (video.trascriptionStatus == "completed") {
+    if (
+      video.transcriptionStatus === "processing" ||
+      video.transcriptionStatus === "pending"
+    ) {
+      return res.status(202).json({
+        message: `Currently  ${video.transcriptionStatus}`,
+      });
+    }
+    const transcript = video.transcript;
+
+    if (video.transcriptionStatus === "completed") {
       return res.status(200).json({
         success: true,
         message: "Video Found",
