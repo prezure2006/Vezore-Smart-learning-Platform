@@ -48,6 +48,9 @@ const WatchPage = () => {
           Edit Video
         </button>
       </div>
+      <div className="transcript">
+        <button className="trasn-butn">Transcript</button>
+      </div>
     </div>
   );
 };
