@@ -172,6 +172,8 @@ router.get("/:id/transcript", async (req, res) => {
         success: true,
         message: "Video Found",
         transcript,
+        transcriptionStatus: video.transcriptionStatus,
+        segments: video.segments,
       });
     }
   } catch (error) {
