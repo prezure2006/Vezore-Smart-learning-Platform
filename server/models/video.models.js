@@ -4,7 +4,7 @@ const VideoData = mongoose.Schema(
   {
     title: {
       type: String,
-      reruired: true,
+      required: true,
     },
     videoUrl: {
       type: String,
@@ -31,7 +31,7 @@ const VideoData = mongoose.Schema(
     transcript: {
       type: String,
     },
-    transcribeData: {
+    segments: {
       type: [
         {
           start: Number,

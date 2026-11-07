@@ -96,15 +96,18 @@ router.put("/updateinfo/:id", async (req, res) => {
   }
 });
 router.post("/:id/transcribe", async (req, res) => {
-  try {
-    const video = await Video.findById(req.params.id);
+  let video;
 
+  try {
+    video = await Video.findById(req.params.id);
     if (!video) {
       return res.status(404).json({
         success: false,
         message: "Video not found",
       });
     }
+    video.transcriptionStatus = "processing";
+    await video.save();
     const filePath = await downloadVideo(video.videoUrl, video._id);
 
     console.log("Downloaded video:", filePath);
@@ -115,18 +118,57 @@ router.post("/:id/transcribe", async (req, res) => {
 
     console.log("Transcript:", transcript.text);
     console.log("Segments:", transcript.segments);
-
+    video.transcript = transcript.text;
+    video.segments = transcript.segments;
+    video.transcriptionStatus = "completed";
+    await video.save();
     return res.status(200).json({
       success: true,
       message: "Transcription completed",
       transcript,
     });
   } catch (error) {
+    if (video) {
+      video.transcriptionStatus = "failed";
+
+      try {
+        await video.save();
+      } catch (saveError) {
+        console.error("Failed to update transcription status:", saveError);
+      }
+    }
+
     console.error("Transcription route error:", error);
 
     return res.status(500).json({
       success: false,
       message: "Transcription failed",
+      error: error.message,
+    });
+  }
+});
+router.get("/:id/transcript", async (req, res) => {
+  let video;
+  try {
+    video = await Video.findById(req.params.id);
+    if (!video) {
+      return res.status(404).json({
+        message: "Video Doesnt exist",
+        success: false,
+      });
+    }
+    const transcript = await video.transcript;
+    if (video.trascriptionStatus == "completed") {
+      return res.status(200).json({
+        success: true,
+        message: "Video Found",
+        transcript,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: "Not found",
+      success: false,
       error: error.message,
     });
   }
