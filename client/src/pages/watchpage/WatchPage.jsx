@@ -125,10 +125,15 @@ const WatchPage = () => {
     }
   }
   function seekToo(seconds) {
-    const videoReference = videoRef.current;
-    if (videoReference) {
-      videoReference.currentTime = seconds;
-      videoReference.play();
+    try {
+      const videoReference = videoRef.current;
+
+      if (videoReference) {
+        videoReference.currentTime = seconds;
+        videoReference.play();
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   }
 
