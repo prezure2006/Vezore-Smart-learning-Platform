@@ -199,8 +199,11 @@ const WatchPage = () => {
               <ul>
                 {segments.map((seg, index) => (
                   <li key={index}>
-                    <button onClick={() => seekToo(seg.start)}>
-                      {seg.start} - {seg.text}
+                    <button
+                      onClick={() => seekToo(seg.start)}
+                      className="timeline-info"
+                    >
+                      <span className="time-real">{seg.start}</span> - {seg.text}
                     </button>
                   </li>
                 ))}
