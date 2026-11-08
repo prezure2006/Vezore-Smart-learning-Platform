@@ -84,10 +84,16 @@ One of the most valuable parts of building Vezore was debugging real problems.
 - [x] Groq Whisper integration.
 - [x] End-to-end transcription API.
 - [x] Transcription is loading in the frontend
+- [x] Allow users to click a transcript segment and jump to its timestamp in the video.
 
 ## Next Development Milestone
 
-- [ ] Allow users to click a transcript segment and jump to its timestamp in the video.
+- [] Transcript UI improvements
+- [] Transcript search
+- [] Transcript utilities
+- [] Video summary
+- []Ask AI
+- [] Final UI and polish
 
 ## What This Project Has Taught Me
 

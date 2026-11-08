@@ -413,3 +413,20 @@ It also returned timestamped segments.
 ### Result
 
 - Can generate the transcript now through groq api calling and show in the react forntend
+
+## Day 9 - [Showing List of the timeline from where users can Change the video timeline ]
+
+## Objective
+
+- Client should see a generated list off the timeline from which they can go to any time point in the video they want and it is beneficial when you try to fidn topics of you necessity
+
+## Implementation
+
+- Got the segments from the backend through the get api and then used segments .map() on it and should each of them used a ul and inside a button where we get onclick
+  -Inside the onclick added a seekTo funtion through which the user can seek to its required time point and also learnt useRef today
+
+## Result
+
+- Now the user can seek TO any point of time of the video timeline
+
+Was not able to do much today But yeah this much is enough now moving towards the next day
