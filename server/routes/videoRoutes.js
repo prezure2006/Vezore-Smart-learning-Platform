@@ -73,13 +73,13 @@ router.delete("/delete/:id", async (req, res) => {
 router.put("/updateinfo/:id", async (req, res) => {
   try {
     const video = await Video.findById(req.params.id);
-    console.log("Received ID:", req.params.id);
+
     if (!video) {
       return res.status(404).json({
         message: "Video doesnt exist",
       });
     }
-    console.log("Found video:", video);
+
     video.title = req.body.title;
     video.description = req.body.description;
     await video.save();
@@ -110,14 +110,10 @@ router.post("/:id/transcribe", async (req, res) => {
     await video.save();
     const filePath = await downloadVideo(video.videoUrl, video._id);
 
-    console.log("Downloaded video:", filePath);
     const audioPath = await extractAudio(filePath, video._id);
 
-    console.log("Audio extracted:", audioPath);
     const transcript = await transcribeAudio(audioPath);
 
-    console.log("Transcript:", transcript.text);
-    console.log("Segments:", transcript.segments);
     video.transcript = transcript.text;
     video.segments = transcript.segments;
     video.transcriptionStatus = "completed";
