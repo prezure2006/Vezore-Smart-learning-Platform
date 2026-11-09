@@ -14,6 +14,7 @@ const WatchPage = () => {
   const [segments, setSegments] = useState([]);
   const [transcriptionStatus, setTranscriptionStatus] = useState("pending");
   const [showTranscript, setShowTranscript] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
 
   // Fetch video details
   useEffect(() => {
@@ -142,6 +143,9 @@ const WatchPage = () => {
     const seconds = Math.floor(second % 60);
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   }
+  const activeIndex = segments.findIndex(
+    (seg) => currentTime >= seg.start && currentTime < seg.end,
+  );
 
   // Keep hooks above this conditional return
   if (!video) {
@@ -151,7 +155,13 @@ const WatchPage = () => {
   return (
     <div className="watch-page">
       <div className="player-container">
-        <video controls ref={videoRef}>
+        <video
+          controls
+          ref={videoRef}
+          onTimeUpdate={(event) =>
+            setCurrentTime(event.currentTarget.currentTime)
+          }
+        >
           <source
             src={video.videoUrl}
             type="video/mp4"
@@ -207,7 +217,7 @@ const WatchPage = () => {
                   <li key={index}>
                     <button
                       onClick={() => seekToo(seg.start)}
-                      className="timeline-info"
+                      className={index === activeIndex ? "active" : ""}
                     >
                       <span className="time-real">
                         {formatTiming(seg.start)}

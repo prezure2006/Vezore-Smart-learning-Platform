@@ -1,11 +1,12 @@
 .video-main {
   width: 100%;
 }
-.timeline-info {
-  all: unset;
-  cursor: pointer;
-}
+
 .time-real {
   color: blue;
   text-decoration: underline;
+}
+.active {
+  background-color: #333;
+  color: white;
 }
