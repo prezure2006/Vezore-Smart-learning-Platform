@@ -180,4 +180,34 @@ router.get("/:id/transcript", async (req, res) => {
     });
   }
 });
+router.post("/:id/summary", async (req, res) => {
+  try {
+    const video = await Video.findById(req.params.id);
+    if (!video) {
+      return res.status(500).json({
+        success: false,
+        message: "Coudnt find the video",
+      });
+    }
+    if (!video.transcript) {
+      return res.status(400).json({
+        // for something missing we use the bad request message
+        success: false,
+        message: "No transcript",
+      });
+    }
+    if (video.summary) {
+      return res.status(200).json({
+        success: true,
+        message: "Summary already generated",
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: "Coudnt Generate Summaries",
+      success: false,
+    });
+  }
+});
+router.get("/:id/summary", async (req, res) => {});
 module.exports = router;

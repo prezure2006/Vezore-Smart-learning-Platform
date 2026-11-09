@@ -45,6 +45,21 @@ const VideoData = mongoose.Schema(
       enum: ["pending", "processing", "completed", "failed"],
       default: "pending",
     },
+    summary: {
+      type: String,
+      default: null,
+    },
+
+    summaryStatus: {
+      type: String,
+      enum: ["pending", "processing", "completed", "failed"],
+      default: "pending",
+    },
+
+    summaryGeneratedAt: {
+      type: Date,
+      default: null,
+    },
   },
 
   {
