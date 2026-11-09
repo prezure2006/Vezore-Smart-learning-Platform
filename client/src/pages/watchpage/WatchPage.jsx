@@ -124,6 +124,7 @@ const WatchPage = () => {
       handleTranscribe();
     }
   }
+
   function seekToo(seconds) {
     try {
       const videoReference = videoRef.current;
@@ -135,6 +136,11 @@ const WatchPage = () => {
     } catch (error) {
       console.log(error.message);
     }
+  }
+  function formatTiming(second) {
+    const minutes = Math.floor(second / 60);
+    const seconds = Math.floor(second % 60);
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   }
 
   // Keep hooks above this conditional return
@@ -203,7 +209,10 @@ const WatchPage = () => {
                       onClick={() => seekToo(seg.start)}
                       className="timeline-info"
                     >
-                      <span className="time-real">{seg.start}</span> - {seg.text}
+                      <span className="time-real">
+                        {formatTiming(seg.start)}
+                      </span>{" "}
+                      - {seg.text}
                     </button>
                   </li>
                 ))}

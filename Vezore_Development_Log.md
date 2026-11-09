@@ -85,10 +85,10 @@ One of the most valuable parts of building Vezore was debugging real problems.
 - [x] End-to-end transcription API.
 - [x] Transcription is loading in the frontend
 - [x] Allow users to click a transcript segment and jump to its timestamp in the video.
+- [x] Transcript UI improvements
 
 ## Next Development Milestone
 
-- [] Transcript UI improvements
 - [] Transcript search
 - [] Transcript utilities
 - [] Video summary
