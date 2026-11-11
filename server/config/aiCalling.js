@@ -1,13 +1,15 @@
-// 1. Correct CommonJS import for the Gen AI SDK
-require("dotenv").config();
+// This loads api key from outisde the folder
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "../.env") });
+//This is how we require the googlegenai object
 const { GoogleGenAI } = require("@google/genai");
 
-// 2. Explicitly pass your API key from process.env
+// here we make a client and pass the api key
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_CALLING });
-
+// This is the async fucntion through which we send our request and get the repsose
 async function calling() {
+  //use try catch to handle errors
   try {
-    // 3. Use the correct method (models.generateContent) and a real model
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: "Who has the most goals in football history",
