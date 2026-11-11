@@ -104,3 +104,17 @@ I learned that building software is not just writing components or API routes. I
 The AI functionality also taught me that using an AI model is only one part of an AI application. Before the model can do its job, the application must prepare the data, process it, send it correctly, and handle the result.
 
 **My development principle:** Build one feature, understand its workflow, test it, debug it, and then move forward. Functionality first, AI capabilities next, and UI polish last.
+
+### AI OpenApi Sdk calling
+
+We are calling this to generate summary and provide chat bot in our application
+We initialize the OpenRouter client once and reuse it because:
+
+- We avoid repeatedly constructing client objects.
+- We keep API configuration in one place.
+- We maintain a clean separation of responsibilities.
+- We avoid unnecessary object creation.
+
+Because the official SDK is ESM-only, CommonJS backend needs dynamic import() when initializing the client
+
+Now i Have shifted to agentSdk Instead of Client sdk and also

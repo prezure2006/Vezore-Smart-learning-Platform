@@ -430,3 +430,9 @@ It also returned timestamped segments.
 - Now the user can seek TO any point of time of the video timeline
 
 Was not able to do much today But yeah this much is enough now moving towards the next day
+
+### Day -[Generating summary with gemini api sdk]
+
+## Objective
+
+The objective is to generate summary and then dispaly it to the forntend
