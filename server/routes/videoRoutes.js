@@ -5,6 +5,7 @@ const cloudinary = require("../config/cloudinary.js");
 const downloadVideo = require("../utils/downloadVideo.js");
 const extractAudio = require("../utils/extractAudio.js");
 const transcribeAudio = require("../utils/transcribeAudio.js");
+const calling = require("../utils/generateSummary.js");
 router.get("/all", async (req, res) => {
   try {
     const allVideo = await Video.find();
@@ -184,28 +185,54 @@ router.post("/:id/summary", async (req, res) => {
   try {
     const video = await Video.findById(req.params.id);
     if (!video) {
-      return res.status(500).json({
+      return res.status(404).json({
         success: false,
-        message: "Coudnt find the video",
+        message: "Couldn't find the video",
       });
     }
+
+    // 1. Validate input first
     if (!video.transcript) {
       return res.status(400).json({
-        // for something missing we use the bad request message
         success: false,
         message: "No transcript",
       });
     }
+
+    // 2. Return early if a summary already exists
     if (video.summary) {
       return res.status(200).json({
         success: true,
         message: "Summary already generated",
+        summary: video.summary,
       });
     }
+
+    // 3. Only now generate it
+    const summary = await calling(video.transcript);
+    console.log(summary);
+
+    if (!summary || !summary.data) {
+      return res.status(500).json({
+        success: false,
+        message: "Summary couldn't be generated",
+      });
+    }
+
+    // 4. Save and respond
+    video.summary = summary; // not summary.data
+    await video.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Summary generated",
+      summary: video.summary,
+    });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({
-      message: "Coudnt Generate Summaries",
       success: false,
+      message: "Couldn't generate summary",
     });
   }
 });

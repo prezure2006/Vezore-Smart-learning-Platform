@@ -2,7 +2,6 @@ require("dotenv").config();
 const videoUpload = require("./routes/videoUpload");
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 
 const connectMongo = require("./config/db");
 const videoRoutes = require("./routes/videoRoutes");
