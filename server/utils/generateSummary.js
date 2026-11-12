@@ -1,19 +1,21 @@
-// 1. Correctly require the exported client (make sure path is correct)
 const ai = require("../config/aiCalling.js");
 
-async function calling(transcript) {
-  try {
-    // 2. Call the API using the imported client
-    const response = await ai.models.generateContent({
-      model: "gemini-3.6-flash",
-      contents: "Summarize indias culture in two lines",
-    });
-
-    // 3. Extract text
-    console.log(response.text);
-    return response.text;
-  } catch (error) {
-    console.error("API Call Failed:", error);
+async function calling(transcript, retries = 3) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: `Summarize the following video transcript clearly and concisely:\n\n${transcript}`,
+      });
+      return response.text;
+    } catch (error) {
+      console.error(
+        `Attempt ${i + 1} failed:`,
+        error.cause?.code || error.message,
+      );
+      if (i === retries - 1) throw error;
+      await new Promise((r) => setTimeout(r, 1000 * (i + 1)));
+    }
   }
 }
 

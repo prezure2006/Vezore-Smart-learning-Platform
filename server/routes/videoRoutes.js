@@ -210,9 +210,8 @@ router.post("/:id/summary", async (req, res) => {
 
     // 3. Only now generate it
     const summary = await calling(video.transcript);
-    console.log(summary);
 
-    if (!summary || !summary.data) {
+    if (!summary) {
       return res.status(500).json({
         success: false,
         message: "Summary couldn't be generated",
