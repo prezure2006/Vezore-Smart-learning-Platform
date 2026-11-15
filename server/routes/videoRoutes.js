@@ -6,6 +6,7 @@ const downloadVideo = require("../utils/downloadVideo.js");
 const extractAudio = require("../utils/extractAudio.js");
 const transcribeAudio = require("../utils/transcribeAudio.js");
 const calling = require("../utils/generateSummary.js");
+// Getting all the video from database
 router.get("/all", async (req, res) => {
   try {
     const allVideo = await Video.find();
@@ -22,6 +23,7 @@ router.get("/all", async (req, res) => {
     });
   }
 });
+// get a single element
 router.get("/:id", async (req, res) => {
   try {
     const video = await Video.findById(req.params.id);
@@ -43,6 +45,7 @@ router.get("/:id", async (req, res) => {
     });
   }
 });
+// Deleting the video
 router.delete("/delete/:id", async (req, res) => {
   try {
     const video = await Video.findById(req.params.id);
@@ -71,6 +74,7 @@ router.delete("/delete/:id", async (req, res) => {
     });
   }
 });
+//update Video info
 router.put("/updateinfo/:id", async (req, res) => {
   try {
     const video = await Video.findById(req.params.id);
@@ -96,6 +100,7 @@ router.put("/updateinfo/:id", async (req, res) => {
     });
   }
 });
+// using all the utility fucntion for downlaoding the video getting the audio transcripting it and then saving in the data base
 router.post("/:id/transcribe", async (req, res) => {
   let video;
 
@@ -143,6 +148,7 @@ router.post("/:id/transcribe", async (req, res) => {
     });
   }
 });
+// getting the trancript of the video of the particular id
 router.get("/:id/transcript", async (req, res) => {
   let video;
   try {
@@ -181,6 +187,7 @@ router.get("/:id/transcript", async (req, res) => {
     });
   }
 });
+// generating summary and saving it to db
 router.post("/:id/summary", async (req, res) => {
   try {
     const video = await Video.findById(req.params.id);
@@ -234,6 +241,27 @@ router.post("/:id/summary", async (req, res) => {
       message: "Couldn't generate summary",
     });
   }
-});
+}); // getting the summary and showing it to the forntend
 router.get("/:id/summary", async (req, res) => {});
+//chat request
+router.post("/:id/chat", async (req, res) => {
+  async function chatRequest() {
+    try {
+      const video = Video.findById(req.params.id); // this is how we get the id by the url and .Video is for to get the Video from the database
+      if (!video) {
+        return res.status(404).json({
+          success: false,
+          message: "Couldn't find the video",
+        });
+        const transcript = video.transcript;
+      }
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
+  chatRequest();
+});
 module.exports = router;
