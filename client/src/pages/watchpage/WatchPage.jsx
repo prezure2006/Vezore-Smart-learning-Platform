@@ -85,7 +85,7 @@ const WatchPage = () => {
         throw new Error("Failed to generate transcript");
       }
 
-      // Fetch the saved transcript from MongoDB
+      // Fetch the saved summary from MongoDB
       const response = await fetch(
         `http://localhost:5000/api/videos/${id}/transcript`,
       );
@@ -106,10 +106,6 @@ const WatchPage = () => {
         throw new Error("Transcript generation was not completed");
       }
 
-      setTranscript(videoData.transcript);
-      setSegments(videoData.segments || []);
-      setTranscriptionStatus(videoData.transcriptionStatus);
-
       // Automatically show transcript after generation
       setShowTranscript(true);
     } catch (error) {
@@ -118,6 +114,7 @@ const WatchPage = () => {
       setIsTranscribing(false);
     }
   }
+  // Already generated transcript
   function handleTranscriptClick() {
     if (transcriptionStatus === "completed") {
       setShowTranscript((previous) => !previous);
@@ -125,7 +122,7 @@ const WatchPage = () => {
       handleTranscribe();
     }
   }
-
+  // seeking funtion to a specific timleine
   function seekToo(seconds) {
     try {
       const videoReference = videoRef.current;
@@ -137,7 +134,7 @@ const WatchPage = () => {
     } catch (error) {
       console.log(error.message);
     }
-  }
+  } // Time formatting fution
   function formatTiming(second) {
     const minutes = Math.floor(second / 60);
     const seconds = Math.floor(second % 60);

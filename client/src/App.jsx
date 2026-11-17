@@ -7,8 +7,6 @@ import EditPage from "./pages/editpage/EditPage";
 import Profile from "./pages/profile/Profile";
 
 function App() {
-
-
   return (
     <Routes>
       <Route path="/" element={<MainLayout />} />
