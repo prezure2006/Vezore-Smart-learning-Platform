@@ -118,3 +118,5 @@ We initialize the OpenRouter client once and reuse it because:
 Because the official SDK is ESM-only, CommonJS backend needs dynamic import() when initializing the client
 
 Now i Have shifted to agentSdk Instead of Client sdk and also
+
+### AI chatbot In making using gemini 3.5 flash
