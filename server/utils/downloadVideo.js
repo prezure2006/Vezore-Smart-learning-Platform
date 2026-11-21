@@ -2,10 +2,11 @@ const fs = require("fs");
 const path = require("path");
 const { Readable } = require("stream");
 const { pipeline } = require("stream/promises");
-
+// download video from cloudinary
+// we provide videoUrl and the videoid
 async function downloadVideo(videoUrl, videoId) {
   const response = await fetch(videoUrl);
-
+  // if video is fetched
   if (!response.ok) {
     throw new Error("Failed to download video from Cloudinary");
   }

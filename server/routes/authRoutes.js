@@ -42,4 +42,13 @@ router.post("/signup", async (req, res) => {
     res.status(500).json({ message: "Server error creating user." });
   }
 });
+router.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(401).json({
+      success: false,
+      message: "Provide all the data",
+    });
+  }
+});
 module.exports = router;
