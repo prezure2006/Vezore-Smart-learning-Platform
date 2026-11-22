@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const User = require("../models/user.model.js");
 const express = require("express");
 const bcrypt = require("bcrypt");
@@ -72,10 +73,14 @@ router.post("/login", async (req, res) => {
         message: "Invalid email or password",
       });
     }
+    const token = jwt.sign({ id: userData._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
 
     return res.status(200).json({
       success: true,
       message: "User logged in successfully",
+      token,
       user: { id: userData._id, name: userData.name, email: userData.email },
     });
   } catch (error) {
@@ -83,6 +88,19 @@ router.post("/login", async (req, res) => {
       success: false,
       message: "Server error",
     });
+  }
+});
+router.get("/me", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req._id).select("-password");
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+    return res.status(200).json({ success: true, user });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "Server error" });
   }
 });
 
