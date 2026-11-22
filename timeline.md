@@ -431,8 +431,35 @@ It also returned timestamped segments.
 
 Was not able to do much today But yeah this much is enough now moving towards the next day
 
-### Day -[Generating summary with gemini api sdk]
+### Day 10 -[Generating summary with gemini api sdk]
 
 ## Objective
 
 The objective is to generate summary and then dispaly it to the forntend
+
+## Implementation
+
+- Now summary is being generated and getting saved in the database
+
+Having some problem in frontend so currently just working on the backend
+
+## Day 11 -[Implementing Authentication for User]
+
+## Objective
+
+- Implement signup route with bcrypt module and hash your password
+
+## Implementation
+
+- Successfully implemented bcrypt password hashing with salt and successfully saving that in our database
+
+## Day 12 -[Implement Signup rote successfully]
+
+## Objective
+
+- successfully registered signup routes and saved that into database
+
+## Implementation
+
+-Data is getting saved in database
+Not much work
