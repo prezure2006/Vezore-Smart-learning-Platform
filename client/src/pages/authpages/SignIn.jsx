@@ -21,16 +21,8 @@ const SignIn = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="main-container">
-        <h1 className="heading">Enter your details:</h1>
-        <label htmlFor="name1">Name</label>
-        <input
-          type="text"
-          name="name1"
-          id="name1"
-          value={name1}
-          onChange={(e) => setName1(e.target.value)}
-          required
-        />
+        <h1 className="heading">Login:</h1>
+
         <label htmlFor="email">Email</label>
         <input
           type="email"
