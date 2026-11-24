@@ -15,7 +15,7 @@ function App() {
       <Route path="/upload" element={<Upload />}></Route>
       <Route path="/edit/:id" element={<EditPage />}></Route>
       <Route path="/profile" element={<Profile />}></Route>
-      <Route path="login" element={<SignIn />}></Route>
+      <Route path="/login" element={<SignIn />}></Route>
       <Route path="/signup" element={<SignUp />}></Route>
     </Routes>
   );

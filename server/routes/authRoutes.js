@@ -4,6 +4,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const { hashPassword } = require("../utils/hashingPassword.js");
 const router = express.Router();
+const authMiddleware = require("../middleware/auth.js");
 
 router.post("/signup", async (req, res) => {
   try {
@@ -45,6 +46,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 router.post("/login", async (req, res) => {
+  const Expiry = 7;
   try {
     const { email, password } = req.body;
 
@@ -76,6 +78,12 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ id: userData._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "lax",
+      secure: "true",
+    });
 
     return res.status(200).json({
       success: true,
@@ -102,6 +110,10 @@ router.get("/me", authMiddleware, async (req, res) => {
   } catch (error) {
     return res.status(500).json({ success: false, message: "Server error" });
   }
+});
+router.post("/logout", (req, res) => {
+  res.clearCookie("token");
+  res.status(200).json({ success: true });
 });
 
 module.exports = router;

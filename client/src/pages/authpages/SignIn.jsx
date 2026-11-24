@@ -1,22 +1,23 @@
 import "./signin.css";
 import { useState } from "react";
 const SignIn = () => {
-  const [name1, setName1] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault(); // stops the page from reloading
     // the fucntions whcih is getting called with fetch can aslo send headers
-    const res = await fetch("/auth/signin", {
+    const res = await fetch("/auth/login", {
+      credintials: "include",
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name1, email, password }),
+      body: JSON.stringify({ email, password }),
     });
     if (!res.ok) {
       console.error(await res.text());
       return;
     }
     const data = await res.json();
+    consol.log(data);
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -41,6 +42,7 @@ const SignIn = () => {
           id="password"
           onChange={(e) => setPassword(e.target.value)}
           required
+          password
         />
       </div>
       <div>

@@ -6,8 +6,9 @@ const downloadVideo = require("../utils/downloadVideo.js");
 const extractAudio = require("../utils/extractAudio.js");
 const transcribeAudio = require("../utils/transcribeAudio.js");
 const calling = require("../utils/generateSummary.js");
+const authMiddle = require("../middleware/auth.js");
 // Getting all the video from database
-router.get("/all", async (req, res) => {
+router.get("/all", authMiddle, async (req, res) => {
   try {
     const allVideo = await Video.find();
     res.status(200).json({
@@ -46,7 +47,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 // Deleting the video
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", authMiddle, async (req, res) => {
   try {
     const video = await Video.findById(req.params.id);
     if (!video) {
@@ -75,7 +76,7 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 //update Video info
-router.put("/updateinfo/:id", async (req, res) => {
+router.put("/updateinfo/:id", authMiddle, async (req, res) => {
   try {
     const video = await Video.findById(req.params.id);
 
@@ -101,7 +102,7 @@ router.put("/updateinfo/:id", async (req, res) => {
   }
 });
 // using all the utility fucntion for downlaoding the video getting the audio transcripting it and then saving in the data base
-router.post("/:id/transcribe", async (req, res) => {
+router.post("/:id/transcribe", authMiddle, async (req, res) => {
   let video;
 
   try {
@@ -149,7 +150,7 @@ router.post("/:id/transcribe", async (req, res) => {
   }
 });
 // getting the trancript of the video of the particular id
-router.get("/:id/transcript", async (req, res) => {
+router.get("/:id/transcript", authMiddle, async (req, res) => {
   let video;
   try {
     video = await Video.findById(req.params.id);
@@ -188,7 +189,7 @@ router.get("/:id/transcript", async (req, res) => {
   }
 });
 // generating summary and saving it to db
-router.post("/:id/summary", async (req, res) => {
+router.post("/:id/summary", authMiddle, async (req, res) => {
   try {
     const video = await Video.findById(req.params.id);
     if (!video) {
