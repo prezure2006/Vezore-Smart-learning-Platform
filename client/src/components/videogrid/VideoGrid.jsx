@@ -13,7 +13,9 @@ const VideoGrid = () => {
     try {
       setLoading(true);
       setError("");
-      const response = await fetch(`${API}/all`);
+      const response = await fetch(`${API}/all`, {
+        credentials: "include",
+      });
       if (!response.ok) throw new Error("Failed to load videos");
       const data = await response.json();
       setVideos(data.videos || []);
@@ -33,6 +35,7 @@ const VideoGrid = () => {
     try {
       const response = await fetch(`${API}/delete/${id}`, {
         method: "DELETE",
+        credentials: "include",
       });
       if (!response.ok) throw new Error("Failed to delete video");
       setVideos((prev) => prev.filter((v) => v._id !== id));
