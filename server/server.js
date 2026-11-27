@@ -7,6 +7,7 @@ const connectMongo = require("./config/db");
 const videoRoutes = require("./routes/videoRoutes");
 const app = express();
 const cookieParser = require("cookie-parser");
+
 connectMongo();
 // Adding Credentials true lets the backend accept the cookies and all
 // Here we provide the client url so that means we can only accept the request form that active url
@@ -28,6 +29,7 @@ app.get("/api/health", (req, res) => {
 // Video routes
 app.use(express.json());
 app.use(cookieParser());
+
 app.use("/api/videos", videoUpload);
 app.use("/api/videos", videoRoutes);
 app.use("/api/auth", authRoute);

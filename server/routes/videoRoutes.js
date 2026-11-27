@@ -8,7 +8,7 @@ const transcribeAudio = require("../utils/transcribeAudio.js");
 const calling = require("../utils/generateSummary.js");
 const authMiddle = require("../middleware/auth.js");
 // Getting all the video from database
-router.get("/all", authMiddle, async (req, res) => {
+router.get("/all", async (req, res) => {
   try {
     const allVideo = await Video.find();
     res.status(200).json({

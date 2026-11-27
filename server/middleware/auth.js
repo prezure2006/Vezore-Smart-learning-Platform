@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const authMidddleware = (req, res, next) => {
-  const browserToken = req.cookie.token;
+  const browserToken = req.cookies.token;
   if (!browserToken) {
     return res.status(401).json({ success: false, message: "Not logged in" });
   }
