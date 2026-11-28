@@ -7,6 +7,7 @@ const connectMongo = require("./config/db");
 const videoRoutes = require("./routes/videoRoutes");
 const app = express();
 const cookieParser = require("cookie-parser");
+const authMiddle = require("./middleware/auth.js");
 
 connectMongo();
 // Adding Credentials true lets the backend accept the cookies and all

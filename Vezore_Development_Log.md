@@ -17,28 +17,40 @@ Vezore is a video platform that allows users to upload, store, watch, edit, and 
 
 The project is being developed incrementally. Instead of building everything at once, each feature is implemented, tested, debugged, and understood before moving to the next one.
 
+## Backend Routes
+
+-- Authentication
+-- Video Upload
+-- Video transcription
+-- Summary generation
+-- AI Chat
+
 ## Mistakes, Debugging and How They Were Fixed
 
 One of the most valuable parts of building Vezore was debugging real problems.
 
-| Problem / mistake                                       | Why it happened                                                  | How it was fixed                                                                       |
-| ------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| Cloudinary upload dependency conflict                   | Incompatible package peer dependencies                           | Resolved the Cloudinary and storage package version conflict                           |
-| `LIMIT_UNEXPECTED_FILE`                                 | Multipart field name did not match Multer configuration          | Used the correct field name `video`                                                    |
-| Mongoose validation error for duration                  | Duration was required but not supplied                           | Made duration optional with a default value                                            |
-| Video not appearing in frontend                         | API data had not been fetched and mapped correctly               | Integrated GET API with `useEffect` and `map()`                                        |
-| EditPage route error                                    | Component was placed directly inside Routes                      | Used the `element` prop inside a Route                                                 |
-| `Cannot read properties of undefined (reading 'title')` | Request data was sent in Postman Params instead of Body          | Sent JSON through Body → raw → JSON                                                    |
-| Wrong description property                              | Read `data.video.descr` instead of `data.video.description`      | Corrected the property name                                                            |
-| JSX input error                                         | Input was written with closing content                           | Used self-closing input syntax                                                         |
-| React form submission issue                             | Event handler was being invoked instead of passed as a reference | Used `onSubmit={handleSubmit}`                                                         |
-| FFmpeg could not find audio stream                      | Initial extraction attempt failed                                | Inspected the actual media streams with FFprobe and tested the FFmpeg command manually |
-| Windows invalid file path                               | Incorrectly constructed command path                             | Used correctly quoted paths and relative paths from the server directory               |
-| Audio extraction integration issue                      | Needed to verify the path and FFmpeg arguments inside Node       | Added logging and verified the generated file                                          |
-| Transcription testing uncertainty                       | Audio processing and API integration were separate steps         | Tested Groq independently before integrating it into the route                         |
+| Cloudinary upload dependency conflict | Incompatible package peer dependencies | Resolved the Cloudinary and storage package version conflict |
+| `LIMIT_UNEXPECTED_FILE` | Multipart field name did not match Multer configuration | Used the correct field name `video` |
+| Mongoose validation error for duration | Duration was required but not supplied | Made duration optional with a default value |
+| Video not appearing in frontend | API data had not been fetched and mapped correctly | Integrated GET API with `useEffect` and `map()` |
+| EditPage route error | Component was placed directly inside Routes | Used the `element` prop inside a Route |
+| `Cannot read properties of undefined (reading 'title')` | Request data was sent in Postman Params instead of Body | Sent JSON through Body → raw → JSON |
+| Wrong description property | Read `data.video.descr` instead of `data.video.description` | Corrected the property name |
+| JSX input error | Input was written with closing content | Used self-closing input syntax |
 
-| POST | because didnt gave the post in the fetch function | By adding a post in the featch function |
-| ---- | ------------------------------------------------- | --------------------------------------- |
+| React form submission issue | Event handler was being invoked instead of passed as a reference | Used `onSubmit={handleSubmit}` |
+| FFmpeg could not find audio stream | Initial extraction attempt failed | Inspected the actual media streams with FFprobe and tested the FFmpeg command manually |
+
+| Windows invalid file path | Incorrectly constructed command path | Used correctly quoted paths and relative paths from the server directory |
+
+| Audio extraction integration issue | Needed to verify the path and FFmpeg arguments inside Node | Added logging and verified the generated file |
+
+| Transcription testing uncertainty | Audio processing and API integration were separate steps | Tested Groq independently before integrating it into the route |
+
+| POST | because didnt gave the post in the fetch function | By adding a post in the fetch function |
+| ---- | ------------------------------------------------- | -------------------------------------- |
+
+|Problems with integrating Authentication still working on it and looking forward to cook|
 
 ### Debugging lessons
 
@@ -86,6 +98,7 @@ One of the most valuable parts of building Vezore was debugging real problems.
 - [x] Transcription is loading in the frontend
 - [x] Allow users to click a transcript segment and jump to its timestamp in the video.
 - [x] Transcript UI improvements
+- [x] Authentication Routes
 
 ## Next Development Milestone
 
@@ -103,8 +116,6 @@ I learned that building software is not just writing components or API routes. I
 
 The AI functionality also taught me that using an AI model is only one part of an AI application. Before the model can do its job, the application must prepare the data, process it, send it correctly, and handle the result.
 
-**My development principle:** Build one feature, understand its workflow, test it, debug it, and then move forward. Functionality first, AI capabilities next, and UI polish last.
-
 ### AI OpenApi Sdk calling
 
 We are calling this to generate summary and provide chat bot in our application
@@ -120,3 +131,11 @@ Because the official SDK is ESM-only, CommonJS backend needs dynamic import() wh
 Now i Have shifted to agentSdk Instead of Client sdk and also
 
 ### AI chatbot In making using gemini 3.5 flash
+
+## Vezore V1
+
+Vezore is a Learning platfrom where user can upload a video upto 10 mb generate Transcript and summary of the video and chat with the video contect to and ai chatbot.
+First User log in or signup Then the user will be Routed on the loding page where on successful Login the will create a jwt key for the session the dont need to login again until it is expired.
+Now there you can Upload Video To learn about that particular video you get transcription summary and chat with video Features for now this only has been implemented and Future action plans and Features will be implemented.
+
+**My development principle:** Build one feature, understand its workflow, test it, debug it, and then move forward. Functionality first, AI capabilities next, and UI polish last.
