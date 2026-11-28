@@ -1,13 +1,15 @@
 import "./signin.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault(); // stops the page from reloading
     // the fucntions whcih is getting called with fetch can aslo send headers
-    const res = await fetch("/auth/login", {
-      credintials: "include",
+    const res = await fetch("http://localhost:5000/api/auth/login", {
+      credentials: "include",
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -17,7 +19,8 @@ const SignIn = () => {
       return;
     }
     const data = await res.json();
-    consol.log(data);
+    console.log(data);
+    navigate("/");
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -42,7 +45,6 @@ const SignIn = () => {
           id="password"
           onChange={(e) => setPassword(e.target.value)}
           required
-          password
         />
       </div>
       <div>
