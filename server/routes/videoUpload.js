@@ -45,6 +45,7 @@ router.post(
         size: result.bytes,
         thumbnailURL: thumbnailUrl,
         description: req.body.description,
+        owner: req.user.id,
       });
 
       res.status(201).json({
